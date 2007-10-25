@@ -1,0 +1,95 @@
+INSTALL - BC Simple Subscription
+================================
+
+
+Installation instructions
+===================================
+
+A brief guide to installing the extension
+and configuring the subscription solution.
+
+
+Getting started
+=======================
+
+- Read the installation requirements,
+  located in doc/README
+
+- Unpack extension
+
+  Location: extension/bcsimplesubscription
+
+
+- Download suggested eZ Publish extension dependencies
+-- Suggested Payment Gateway: eZ Authorize trunk (1.4+)
+--- Suggested related dependencies: eZ GPG, Wrap Operator, eZ DBug
+
+
+- Install the extension 
+
+  Location: extension/bcsimplesubscription
+
+
+- Enable extension
+
+  Using normal process to activate the extension global or per siteaccess
+
+
+- Install and configure custom classes
+
+  Packages: extension/bcsimplesubscription/packages/
+
+
+- Install workflow
+
+  Configure workflow trigger to asign installed workflow to the trigger, 'checkout,shop,after'.
+
+
+- Install extension settings override
+
+  File: extension/bcsimplesubscription/settings/bcsimplesubscription.ini.append.php
+  Destination: settings/override/bcsimplesubscription.ini.append.php
+
+- Configure Group / Role Permissions
+
+Example #1
+
+Name: Anonymous
+Policies [7]
+Module  Function        Limitation
+content         read    Section( Standard )
+content         pdf     Section( Standard )
+rss     feed    No limitations
+user    login   SiteAccess( ss )
+shop    buy     No limitations
+content         read    Section( Media )
+content         read    Section( Glossary )
+
+
+Name: Premium
+Policies [8]
+Module  Function        Limitation
+content         read    Section( Standard )
+content         pdf     Section( Standard )
+rss     feed    No limitations
+user    login   SiteAccess( ss )
+shop    buy     No limitations
+content         read    Section( Media )
+content         read    Section( Glossary )
+content         read    Section( Premium Content )
+
+
+- Install / Configure eZ Publish Cronjob Part System
+  (add cron/crontab as webserver user)
+
+  Example #1 
+        # ./runcronjobs.php -dc subscriptionexpiration | less
+
+  Example #1 
+        # ./runcronjobs.php -s ss -dc| less
+
+
+- Clear Cache
+
+  Example #1
+        # ./bin/shell/clearcache.sh --clear-all
