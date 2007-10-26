@@ -80,11 +80,14 @@ class BCSimpleSubscriptionType extends eZWorkflowEventType
         $currentUserObject = eZContentObjectTreeNode::fetch( $currentUserNodeID );
 
         // print_r( $s->fetchOrder( $currentUserObjectID, false ) );
+        // $currentUserEmail = $currentUser->Email;
+        // $order = $s->fetchOrder( $currentUserObjectID, true );
+        // if ( is_object( $order ) )
 
         if ( is_numeric( $s->fetchOrder( $currentUserObjectID, false ) ) )
         {
-
             // Fetch Current Order ID
+            // $orderID = $s->fetchOrderObject( $currentUserEmail, alse );
             $orderID = $s->fetchOrder( $currentUserObjectID, false );
 
             // Subscription Activation

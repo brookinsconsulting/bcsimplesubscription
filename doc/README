@@ -2,17 +2,19 @@ README - BC Simple Subscription
 ===============================
 
 
-What is the eZ Authorize extension?
-===================================
+What is the BC Simple Subscription extension?
+=============================================
 
 Provides for Simple User Subscription Shop Solution
+
+eZ Network Guidelines label this extension as type 'D'.
 
 
 Version
 =======
 
 The current version of BC Simple Subscription is 1.0.1.
-Last Updated: October 22, 2007
+Last Updated: October 26, 2007
 
 You can find details about changes for this
 version in doc/changelogs/CHANGELOG-1.0.1
