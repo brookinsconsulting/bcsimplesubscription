@@ -1,3 +1,6 @@
 TODO
 ====
 
+- Provide for multiple subscription user groups / roles
+-- Update Content Class: Product, Add attribute named, 'SubscriptionGroup', (datatype, selection, of group)
+-- Update Class to replace static settings with product attribute 'SubscriptionGroup' surrounding user group membership upon subscription purchase

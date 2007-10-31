@@ -26,7 +26,7 @@ Getting started
    Destination: extension/bcsimplesubscription
 
 
-3) Optional - Shop/Commerce related extensions
+3) Optional - Shop / Commerce related extensions
 
    Optional. If you are in need of payment gateway support.
    Download and install suggested the following extensions.
@@ -93,7 +93,7 @@ Getting started
     http://ez.no/doc/ez_publish/technical_manual/3_9/concepts_and_basics/workflows
 
     See section '5. Workflow & Trigger Setup',
-    http://svn.projects.ez.no/ezauthorize/trunk/ezauthorize/doc/INSTALL 
+    http://svn.projects.ez.no/ezauthorize/trunk/ezauthorize/doc/INSTALL
 
 
 11) Install extension settings override
@@ -106,9 +106,9 @@ Getting started
 
 12) Configure Group / Role Permissions
 
-    You will require a guest group and premium group.
-    Here is an example set of permissions, your permissions
-    will be different.
+    You will require a at least one guest group and one premium group.
+
+    Here is an example set of permissions, your permissions will be different.
 
     Example #1
 
@@ -143,11 +143,17 @@ Getting started
     Add cron/crontab as webserver user. You may wish to test
     the cronjob command first. Here are two examples
 
-    Example #1 
+    Example #1 - Example run a specific cronjob per siteaccess
+
         # ./runcronjobs.php -dc subscriptionexpiration | less
 
-    Example #1 
+    Example #2 - Example run all cronjobs per siteaccess
+
         # ./runcronjobs.php -s ss -dc| less
+
+    Example #3 - Example crontab entry to run every hour
+
+        17 * * * cd /var/www/html && /bin/php runcronjobs.php subscriptionexpiration -q -s ss 2>&1
 
     References,
     http://ez.no/doc/ez_publish/technical_manual/3_9/features/cronjobs/configuring_cronjobs
@@ -159,7 +165,6 @@ Getting started
 
     Example #1
         # ./bin/shell/clearcache.sh --clear-all
-
 
 15) Test
 
