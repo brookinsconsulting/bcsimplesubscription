@@ -1,5 +1,10 @@
 <? /* #?ini charset="utf-8"?
 
+# Simple Subscription Settings
+#
+# Most of these are ids based on your existing content
+# and should be modified to match your own content's ids
+
 [SimpleSubscriptionSettings]
 
 # Subscription Group (Premium)
@@ -9,8 +14,6 @@ SubscriptionGroupNodeID=70
 SubscriptionGuestGroupNodeID=12
 
 # Subscription Product
-SubscriptionProductNodeID=86
-SubscriptionProductObjectID=87
 SubscriptionProductClassID=16
 
 # Class Attribute Names
