@@ -1,0 +1,51 @@
+TESTING
+=======================
+
+Testing Use Cases
+=======================
+
+Case: User Shop, Register, Checkout
+=======================
+
+Goal: User selects the subscription product by adding it to their basket/cart, register/login, confirm their order, submit valid payment information, complete checkout of a subscription product is updated to assign the subscription expiration date (based on product quantity in order * product content object attribute 'product number') and is moved to the subscription group ('Premium Users').
+
+1. Visit Site, http://example.com
+2. Select Product, http://example.com/subscriptions
+3. Add to basket
+4. Register / Login
+5. Checkout / Confirmation
+6. Payment Information
+7. Subscription Activation
+9. Order Detail View
+
+
+Case: Admin View Registered User (After User Registration, 'Register / Login')
+=======================
+
+Goal: Users who register are created in the registered user group ('Guest Users')
+
+1. View Admin Site, http://admin.example.com
+2. View User Object in Guest User Group, http://admin.example.com/users/premium_users/the_test
+3. View User Object Group, http://admin.example.com/users/guest_accounts
+
+
+Case: Admin View Registered Subscription User (After User Checkout, 'Subscription Activation')
+=======================
+
+Goal: Users who checkout with a subscription product in basket are moved to the subscription group ('Premium Users')
+
+1. View Admin Site, http://admin.example.com
+2. View User Object in Premium User Group, http://admin.example.com/users/premium_users/the_test
+3. View User Object Group, http://admin.example.com/users/premium_users
+
+
+Case: Daily Cronjob Part - SubscriptionExpiration
+=======================
+
+Goal: Users who have an 'expire' attribute (ezdatetime) not greater than or equal to the current date are moved to the default user group ('Guest Users') when this cronjob is run once a day at the least and every hour at best (est, every hour @ *:53 am)
+
+1. View Admin Site, URL
+2. View User Object in Premium User Group, http://admin.example.com/users/premium_users/the_test
+3. View User Object Group, http://admin.example.com/users/premium_users
+4. View User Object in Guest User Group, http://admin.example.com/users/guest_accounts/the_test
+5. View User Object Group, http://admin.example.com/users/guest_accounts

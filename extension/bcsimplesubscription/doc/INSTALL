@@ -1,0 +1,173 @@
+INSTALL - BC Simple Subscription
+================================
+
+
+Installation instructions
+===================================
+
+A brief guide to installing the extension
+and configuring the subscription solution.
+
+
+Getting started
+=======================
+
+0) Read the installation requirements
+   These are located in doc/README
+
+
+1) Download the extension
+
+   From: http://projects.ez.no/bcsimplesubscription
+
+
+2) Unpack extension
+
+   Destination: extension/bcsimplesubscription
+
+
+3) Optional - Shop / Commerce related extensions
+
+   Optional. If you are in need of payment gateway support.
+   Download and install suggested the following extensions.
+
+   - Suggested Payment Gateway: eZ Authorize trunk (1.4+)
+   -- Suggested related dependencies: eZ GPG, Wrap Operator, eZ DBug
+
+
+4) Install the extension 
+
+   Destination: extension/bcsimplesubscription
+
+
+5) Enable / Activate the extension
+
+   Using the normal process to activate an extension via global or per siteaccess settings.
+
+   References,
+   http://ezpedia.org/wiki/en/ez/learning_how_to_create_a_design_extension#eztoc946_3
+   http://ez.no/doc/extensions/database/1_4/installation#enable
+
+
+6) Install and configure custom classes
+
+   This extension is designed with the expectation of the following attributes / datatypes in the 'product' and 'user' classes and objects.
+
+   To provide for custom product class product attribute 'product_number' (integer/string).
+   To provide for custom user class user attribute 'expire' (ezdatetime).
+
+   This extension provides the very same packages of classes 
+   used in the creation of this extension as an example and reference.
+
+   Packages Directory: extension/bcsimplesubscription/packages
+
+
+7) Create workflow group
+
+   Create 'Subscription' workflow group
+
+   About workflows,
+   http://ez.no/doc/ez_publish/technical_manual/3_9/concepts_and_basics/workflows
+
+   See section '5. Workflow & Trigger Setup',
+   http://svn.projects.ez.no/ezauthorize/trunk/ezauthorize/doc/INSTALL 
+
+
+8) Create workflow
+
+   Create 'Subscription Activation' Workflow. Before saving the workflow
+   please be certain to first complete step #9.
+
+
+9) Assign workflow event
+
+   Add 'Subscription Activation' workflow event (provided by this extension) 
+   to 'Subscription Activation' workflow while creating workflow in step #8.
+
+
+10) Configure workflow trigger
+
+    Assign the workflow 'Subscription Activation' to the trigger 'shop, checkout, after'.
+
+    About workflows,
+    http://ez.no/doc/ez_publish/technical_manual/3_9/concepts_and_basics/workflows
+
+    See section '5. Workflow & Trigger Setup',
+    http://svn.projects.ez.no/ezauthorize/trunk/ezauthorize/doc/INSTALL
+
+
+11) Install extension settings override
+
+    File: extension/bcsimplesubscription/settings/bcsimplesubscription.ini.append.php
+    Destination: settings/override/bcsimplesubscription.ini.append.php
+
+    Customize settings (IDs) to match your own. These will be different.
+
+
+12) Configure Group / Role Permissions
+
+    You will require a at least one guest group and one premium group.
+
+    Here is an example set of permissions, your permissions will be different.
+
+    Example #1
+
+    Name: Anonymous
+    Policies [7]
+    Module  Function        Limitation
+
+    content         read    Section( Standard )
+    content         pdf     Section( Standard )
+    rss     feed    No limitations
+    user    login   SiteAccess( ss )
+    shop    buy     No limitations
+    content         read    Section( Media )
+    content         read    Section( Glossary )
+
+    Name: Premium
+    Policies [8]
+    Module  Function        Limitation
+
+    content         read    Section( Standard )
+    content         pdf     Section( Standard )
+    rss     feed    No limitations
+    user    login   SiteAccess( ss )
+    shop    buy     No limitations
+    content         read    Section( Media )
+    content         read    Section( Glossary )
+    content         read    Section( Premium Content )
+
+
+13) Install / Configure eZ Publish Cronjob Part System
+    
+    Add cron/crontab as webserver user. You may wish to test
+    the cronjob command first. Here are two examples
+
+    Example #1 - Example run a specific cronjob per siteaccess
+
+        # ./runcronjobs.php -dc subscriptionexpiration | less
+
+    Example #2 - Example run all cronjobs per siteaccess
+
+        # ./runcronjobs.php -s ss -dc| less
+
+    Example #3 - Example crontab entry to run every hour
+
+        17 * * * cd /var/www/html && /bin/php runcronjobs.php subscriptionexpiration -q -s ss 2>&1
+
+    References,
+    http://ez.no/doc/ez_publish/technical_manual/3_9/features/cronjobs/configuring_cronjobs
+    http://ez.no/doc/ez_publish/technical_manual/3_9/features/cronjobs/the_cronjob_scripts
+    http://ez.no/doc/ez_publish/technical_manual/3_9/features/cronjobs/running_cronjobs
+
+
+14) Clear Cache
+
+    Example #1
+        # ./bin/shell/clearcache.sh --clear-all
+
+15) Test
+
+    Test the newly configured extension features within your installation.
+
+
