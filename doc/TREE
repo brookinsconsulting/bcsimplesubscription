@@ -1,0 +1,43 @@
+.
+|-- classes
+|   `-- bcsimplesubscription.php
+|-- cronjobs
+|   `-- subscriptionexpiration.php
+|-- design
+|   `-- standard
+|       `-- override
+|           `-- templates
+|               |-- subscription_activation_email_notification.tpl
+|               `-- subscription_expiration_email_notification.tpl
+|-- doc
+|   |-- COPYRIGHT
+|   |-- INSTALL
+|   |-- LICENSE
+|   |-- README
+|   |-- TESTING
+|   |-- TODO
+|   |-- TREE
+|   `-- changelogs
+|       |-- CHANGELOG-1.0.0
+|       |-- CHANGELOG-1.0.1
+|       `-- CHANGELOG-1.1.0
+|-- ezinfo.php
+|-- packages
+|   |-- classes
+|   |   |-- product-1.0-1.ezpkg
+|   |   `-- user-1.0-1.ezpkg
+|   `-- objects
+|       `-- one_week_subscription-1.0-1.ezpkg
+|-- settings
+|   |-- bcsimplesubscription.ini.append.php
+|   |-- cronjob.ini.append.php
+|   |-- design.ini.append.php
+|   |-- shopaccount.ini.append.php
+|   |-- site.ini.append.php
+|   `-- workflow.ini.append.php
+`-- workflowtypes
+    `-- event
+        `-- bcsimplesubscription
+            `-- bcsimplesubscriptiontype.php
+
+15 directories, 25 files

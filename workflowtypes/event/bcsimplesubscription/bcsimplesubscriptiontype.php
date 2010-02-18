@@ -35,25 +35,29 @@
   \class BCSimpleSubscriptionType bcsimplesubscriptiontype.php
   \brief The class BCSimpleSubscriptionType handles simple subscription activation
 */
-
+/*
 include_once( 'lib/ezxml/classes/ezxml.php' );
 include_once( 'kernel/classes/ezcontentobject.php' );
 include_once( 'kernel/classes/datatypes/ezuser/ezuser.php' );
 include_once( 'kernel/classes/datatypes/ezdatetime/ezdatetimetype.php' );
 include_once( 'kernel/classes/ezorder.php' );
 include_once( 'extension/bcsimplesubscription/classes/bcsimplesubscription.php' );
+*/
 
-define( 'EZ_WORKFLOW_TYPE_BCSIMPLESUBSCRIPTION_ID', 'bcsimplesubscription' );
+// define( 'EZ_WORKFLOW_TYPE_BCSIMPLESUBSCRIPTION_ID', 'bcsimplesubscription' );
 
 
 class BCSimpleSubscriptionType extends eZWorkflowEventType
 {
+    // const GATEWAY_TYPE = "eZAuthorize";
+    const BCSIMPLESUBSCRIPTION_ID = 'bcsimplesubscription';
+    
     /*!
      Constructor
     */
     function BCSimpleSubscriptionType()
     {
-        $this->eZWorkflowEventType( EZ_WORKFLOW_TYPE_BCSIMPLESUBSCRIPTION_ID, ezi18n( 'kernel/workflow/event', "Subscription Activation" ) );
+        $this->eZWorkflowEventType( BCSimpleSubscriptionType::BCSIMPLESUBSCRIPTION_ID, ezi18n( 'kernel/workflow/event', "Subscription Activation" ) );
         $this->setTriggerTypes( array( 'shop' => array( 'checkout' => array ( 'after' ) ) ) );
 
         // $this->setTriggerTypes( array( 'shop' => array( 'checkout' => array ( 'after' ) ) ) );
@@ -63,7 +67,7 @@ class BCSimpleSubscriptionType extends eZWorkflowEventType
     /*!
      Constructor
     */
-    function execute( &$process, &$event )
+    function execute( $process, $event )
     {
         // Set default return variable
         $ret = false;
@@ -107,10 +111,10 @@ class BCSimpleSubscriptionType extends eZWorkflowEventType
         // print_r( $process->attribute( 'parameter_list' ) );
         // die( $ret );
 
-        return EZ_WORKFLOW_TYPE_STATUS_ACCEPTED;
+        return eZWorkflowEventType::STATUS_ACCEPTED;
     }
 }
 
-eZWorkflowEventType::registerType( EZ_WORKFLOW_TYPE_BCSIMPLESUBSCRIPTION_ID, "bcsimplesubscriptiontype" );
+eZWorkflowEventType::registerEventType( BCSimpleSubscriptionType::BCSIMPLESUBSCRIPTION_ID, "bcsimplesubscriptiontype" );
 
 ?>

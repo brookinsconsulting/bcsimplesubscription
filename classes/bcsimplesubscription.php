@@ -31,7 +31,7 @@
 /*!
  \file bcsimplesubscription.php
 */
-
+/*
 include_once( 'lib/ezutils/classes/ezhttptool.php' );
 include_once( 'lib/ezutils/classes/ezexecution.php' );
 include_once( 'kernel/classes/ezcache.php' );
@@ -42,7 +42,7 @@ include_once( 'kernel/classes/ezcontentobject.php' );
 include_once( 'kernel/classes/ezcontentobjecttreenode.php' );
 include_once( 'kernel/classes/datatypes/ezuser/ezuser.php' );
 include_once( 'kernel/classes/datatypes/ezdatetime/ezdatetimetype.php' );
-
+*/
 
 /*!
  \class BCSimpleSubscription bcsimplesubscription.php
@@ -377,8 +377,8 @@ class BCSimpleSubscription
         // Change Script Session User to Privilaged Role User, Admin
         $this->loginDifferentUser( $administratorUserID );
 
-        // $users =& eZContentObjectTreeNode::subTree( array( 'Depth' => 3 ), $parent_node_id );
-        $users =& eZContentObjectTreeNode::subTree( array('ClassFilterArray' => array( $classID ),
+        // $users = eZContentObjectTreeNode::subTree( array( 'Depth' => 3 ), $parent_node_id );
+        $users = eZContentObjectTreeNode::subTree( array('ClassFilterArray' => array( $classID ),
                                                           'ClassFilterType' => 'include',
                                                           'Depth' => 1,
                                                           'mainNodeOnly' => true ),
@@ -547,7 +547,7 @@ class BCSimpleSubscription
     function fetchOrderObject( $Email )
     {
         $ret = false;
-        $db =& eZDB::instance();
+        $db = eZDB::instance();
 
         $Email = urldecode( $Email );
         $Email = $db->escapeString( $Email );
@@ -561,7 +561,7 @@ class BCSimpleSubscription
         $retOrders = array();
         for( $i=0; $i < count( $orderArray ); $i++ )
         {
-            $order =& $orderArray[$i];
+            $order = $orderArray[$i];
             $order = new eZOrder( $order );
             $retOrders[] = $order;
         }
@@ -613,19 +613,19 @@ class BCSimpleSubscription
     */
     function loginDifferentUser( $user_id ) //, $attributes_to_export, $seperationChar )
     {
-        $http =& eZHTTPTool::instance();
-        $currentuser =& eZUser::currentUser();
-        $user =& eZUser::fetch( $user_id );
+        $http = eZHTTPTool::instance();
+        $currentuser = eZUser::currentUser();
+        $user = eZUser::fetch( $user_id );
 
         if ($user==null)
             return false;
 
-        //bye old user
+        // bye old user
         $currentID = $http->sessionVariable( 'eZUserLoggedInID' );
-        $http  =& eZHTTPTool::instance();
+        $http = eZHTTPTool::instance();
         $currentuser->logoutCurrent();
 
-        //welcome new user
+        // welcome new user
         $user->loginCurrent();
         $http->setSessionVariable( 'eZUserAdditionOldID', $user_id );
 
