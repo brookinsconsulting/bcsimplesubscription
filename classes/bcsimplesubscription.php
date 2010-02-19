@@ -66,13 +66,13 @@ class BCSimpleSubscription
     */
     function isMembershipExpired( $user )
     {
-        $ret = false;
+	$ret = false;
         $dm = $user->dataMap();
         $userObject = $user->object();
         $userObjectName = $userObject->attribute( 'name' );
         $userObjectDataMap = $userObject->dataMap();
         $userObjectExpiry = $userObjectDataMap['expire'];
-        $userObjectExpiryInteger = $userObjectDataMap['expire']->content();
+	$userObjectExpiryInteger = $userObjectDataMap['expire']->content();
 
         // fetch current datetime object
         $currentDateTime = new eZDateTime();
@@ -87,7 +87,7 @@ class BCSimpleSubscription
         $userExpireDateTimeString = $userExpireDateTime->toString();
 
         /*
-        print_r( "Name: ". $userObjectName . "\n" );
+	print_r( "Name: ". $userObjectName . "\n" );
         print_r( "Current Date: ". $currentDateTimeString ."\n" );
         print_r( "User Expire Date: ". $userExpireDate ."\n" );
         print_r( "User Expire eZDateTime: ". $userExpireDateTimeString ."\n" );
@@ -255,7 +255,6 @@ class BCSimpleSubscription
                 $ret = $this->sendMembershipActivationNoticeToUserEmail( $currentUser );
             }
         }
-
         return $ret;
     }
 
@@ -378,11 +377,24 @@ class BCSimpleSubscription
         $this->loginDifferentUser( $administratorUserID );
 
         // $users = eZContentObjectTreeNode::subTree( array( 'Depth' => 3 ), $parent_node_id );
-        $users = eZContentObjectTreeNode::subTree( array('ClassFilterArray' => array( $classID ),
+        /* deprecated 3.x
+	$users = eZContentObjectTreeNode::subTree( array('ClassFilterArray' => array( $classID ),
                                                           'ClassFilterType' => 'include',
                                                           'Depth' => 1,
                                                           'mainNodeOnly' => true ),
                                                           $subscriptionGroupNodeID );
+        */
+	$users = eZContentObjectTreeNode::subTreeByNodeID( array('ClassFilterArray' => array( $classID ),
+                                                          'ClassFilterType' => 'include',
+                                                          'Depth' => 1,
+                                                          'mainNodeOnly' => true ),
+                                                          $subscriptionGroupNodeID );
+
+	/*
+	print_r( $subscriptionGroupNodeID );
+	print_r( $users );
+	die();
+	*/
 
         // Check all users for expired membership
         foreach ( $users as $user )
@@ -390,11 +402,11 @@ class BCSimpleSubscription
             if ( $debug == true )
             {
                 $results = $this->sendMembershipExpirationNoticeToUserEmail( $user );
-                print_r( $results );
+                // print_r( $results );
                 /* include_once( 'extension/ezdbug/autoloads/ezdbug.php' );
                 $d = new eZDBugOperators();
                 $d->ezdbugDump( $results, 99, true ); */
-                die('here');
+                // die('here');
             }
             if ( $this->isMembershipExpired( $user ) == true )
             {
@@ -456,7 +468,9 @@ class BCSimpleSubscription
         $to = $userEmail;
         $subject = "Subscription Expiration Notification";
         $body = $tpl->fetch("design:subscription_expiration_email_notification.tpl");
-        $results = $this->sendNotificationEmail( $to, $subject, $body );
+        // print_r( $body ); die(); 
+
+	$results = $this->sendNotificationEmail( $to, $subject, $body );
 
         return $results;
     }

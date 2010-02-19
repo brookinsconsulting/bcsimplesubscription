@@ -34,7 +34,7 @@
 */
 
 // include_once( 'lib/ezutils/classes/ezini.php' );
-include_once( 'extension/bcsimplesubscription/classes/bcsimplesubscription.php' );
+// include_once( 'extension/bcsimplesubscription/classes/bcsimplesubscription.php' );
 
 // Main - Check all the user accounts for expired memberships and change user group
 $s = new BCSimpleSubscription();
