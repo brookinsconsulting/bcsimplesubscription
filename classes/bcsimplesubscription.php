@@ -67,12 +67,17 @@ class BCSimpleSubscription
     function isMembershipExpired( $user )
     {
 	$ret = false;
+
+        // Settings
+        $ini = eZINI::instance( "bcsimplesubscription.ini" );
+        $subscriptionUserAttributeName = $ini->variable( "SimpleSubscriptionSettings", "SubscriptionUserAttributeName" );
+
         $dm = $user->dataMap();
         $userObject = $user->object();
         $userObjectName = $userObject->attribute( 'name' );
         $userObjectDataMap = $userObject->dataMap();
-        $userObjectExpiry = $userObjectDataMap['expire'];
-	$userObjectExpiryInteger = $userObjectDataMap['expire']->content();
+        $userObjectExpiry = $userObjectDataMap["$subscriptionUserAttributeName"];
+	$userObjectExpiryInteger = $userObjectDataMap["$subscriptionUserAttributeName"]->content();
 
         // fetch current datetime object
         $currentDateTime = new eZDateTime();
@@ -287,13 +292,18 @@ class BCSimpleSubscription
 
         // Fetch DateStamp String
         $dateStamp = $date->DateTime;
-
+// print_r( $date ); die();
         // $db =& eZDB::instance();
         // $db->begin();
 
+// print_r( $object->currentLanguageObject() );
+// die();
+ 
         // Create New Object Version
-        $newVersion  = $object->createNewVersion( true );
-        $newVersionNumber = $newVersion->Version;
+        $newVersion  = $object->createNewVersionIn( true );
+	// print_r( $newVersion );
+        
+	$newVersionNumber = $newVersion->Version;
         $newVersionObject = $newVersion->contentObject();
         $newVersionAttributes = $newVersion->contentObjectAttributes();
         $newVersionAttributeExpireDate = false;
