@@ -460,7 +460,7 @@ class BCSimpleSubscription
 
         // Send Email to User
         include_once( 'kernel/common/template.php' );
-        $tpl = templateInit();
+        $tpl = eZTemplate::factory();
 
         // Fetch User First Name
         $attributeFirstName = $currentUserObjectDataMap['first_name'];
@@ -513,7 +513,7 @@ class BCSimpleSubscription
 
         // Send Email to User
         include_once( 'kernel/common/template.php' );
-        $tpl = templateInit();
+        $tpl = eZTemplate::factory();
 
         // Fetch User Details
         $tpl->setVariable( 'user_first_name', $firstName );
